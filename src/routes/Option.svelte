@@ -1,22 +1,27 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
+  import { initializeLanguage, t } from '../lib/i18n';
   const dispatch = createEventDispatcher();
-
   function selectOption(option) {
     dispatch('select', option);
   }
+  onMount(() => {
+    initializeLanguage();
+  })
 </script>
 
 <div class="options-container">
   <button class="option-button" on:click={() => selectOption('encrypt')}>
     <div class="button-content">
-      <h2>Encrypt</h2>
+      <h2>{$t.encrypt_switch_view}</h2>
+      <p>{$t.encrypt_switch_tip}</p>
     </div>
   </button>
 
   <button class="option-button" on:click={() => selectOption('decrypt')}>
     <div class="button-content">
-      <h2>Decrypt</h2>
+      <h2>{$t.decrypt_switch_view}</h2>
+      <p>{$t.decrypt_switch_tip}</p>
     </div>
   </button>
 </div>
