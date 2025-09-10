@@ -1,0 +1,19 @@
+{
+    "encrypt_switch_view": "Encrypt",
+    "encrypt_switch_tip": "Encrypt your images",
+    "decrypt_switch_view": "Decrypt",
+    "decrypt_switch_tip": "Decrypt your images",
+    "choose_file": "Choose File, or Drop Here",
+    "file_dir": "File/Directory",
+    "pwd": "Password",
+    "pwd_placeholder": "Please enter password",
+    "pwd_empty": "Password cannot be empty",
+    "pwd_disclaimer": "Note: The password is not stored, please DO NOT forget your password. If you forget your password, you will not be able to recover your images.",
+    "start": "Start",
+    "processing": "Processing...",
+    "log": "Show log",
+    "run_encryption_finished": "Encryption completed",
+    "run_decryption_finished": "Decryption completed",
+    "run_encryption_failed": "Encryption failed. Check the log for details, or you can create an issue on GitHub.",
+    "run_decryption_failed": "Decryption failed. Check the log for details, or you can create an issue on GitHub."
+}
