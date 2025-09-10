@@ -1,0 +1,19 @@
+{
+  "encrypt_switch_view": "Verschlüsseln",
+  "encrypt_switch_tip": "Ihre Bilder verschlüsseln",
+  "decrypt_switch_view": "Entschlüsseln",
+  "decrypt_switch_tip": "Ihre Bilder entschlüsseln",
+  "choose_file": "Datei wählen oder hier ablegen",
+  "file_dir": "Datei/Verzeichnis",
+  "pwd": "Passwort",
+  "pwd_placeholder": "Bitte geben Sie das Passwort ein",
+  "pwd_empty": "Das Passwort darf nicht leer sein",
+  "pwd_disclaimer": "Hinweis: Das Passwort wird nicht gespeichert. BITTE vergessen Sie Ihr Passwort NICHT. Wenn Sie Ihr Passwort vergessen, können Sie Ihre Bilder nie mehr wiederherstellen.",
+  "start": "Starten",
+  "processing": "Verarbeitung läuft...",
+  "log": "Protokoll anzeigen",
+  "run_encryption_finished": "Verschlüsselung abgeschlossen",
+  "run_decryption_finished": "Entschlüsselung abgeschlossen",
+  "run_encryption_failed": "Verschlüsselung fehlgeschlagen. Überprüfen Sie das Protokoll auf Details, oder erstellen Sie ein Issue auf GitHub.",
+  "run_decryption_failed": "Entschlüsselung fehlgeschlagen. Überprüfen Sie das Protokoll auf Details, oder erstellen Sie ein Issue auf GitHub."
+}
