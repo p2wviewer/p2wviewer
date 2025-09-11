@@ -5,9 +5,19 @@
   "windows": ["main"],
   "permissions": [
     "core:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/libp2wviewer.exe",
+          "sidecar": true
+        }
+      ]
+    },
     "opener:default",
     "locale:default",
     "dialog:allow-open",
-    "dialog:allow-save"
+    "dialog:allow-save",
+    "dialog:allow-message"
   ]
 }

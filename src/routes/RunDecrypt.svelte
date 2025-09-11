@@ -1,8 +1,9 @@
 <script>
-  import { open, save } from '@tauri-apps/plugin-dialog';
+  import { open, save, message } from '@tauri-apps/plugin-dialog';
   import { createEventDispatcher } from 'svelte';
   import { get } from 'svelte/store';
   import { t } from '../lib/i18n.js';
+    import { read } from '$app/server';
   //import { invoke } from '@tauri-apps/api/tauri';
 
   const dispatch = createEventDispatcher();
@@ -22,6 +23,10 @@
       multiple: false,
       directory: true,
       title: get(t).choose_encrypted_file,
+      filters: [{
+        name: 'Image',
+        extensions: ['png']
+      }]
     });
     if (selected) {
       encryptedFilePath = selected;
@@ -41,7 +46,7 @@
       defaultPath: saveLocationPath || encryptedFilePath || 'decrypted_file',
       filters: [{
         name: 'Image',
-        extensions: ['png', 'jpeg', 'jpg', 'gif']
+        extensions: ['png', 'jpeg', 'jpg']
       }]
     });
     if (selected) {
@@ -69,24 +74,38 @@
       return;
     }
     if (!keyFilePath && !password) {
-      await message(get(t).key_file_or_password_empty, { kind: 'warning' });
+      await message(get(t).key_file_or_pwd_empty, { kind: 'warning' });
+      return;
+    }
+    if (keyFilePath && password) {
+      await message(get(t).key_file_and_pwd_same_time, { kind: 'warning'});
       return;
     }
 
     try {
-      const result = "mocked_result";
-      //const result = await invoke('p2wviewer_decrypt', { 
-        //filePath: encryptedFilePath,
-        //savePath: saveLocationPath,
-        //keyPath: keyFilePath,
-        //password: password,
-        //showLog: showLog,
-      //});
-      console.log('Decryption result:', result);
-      await message(get(t).run_decryption_finished, { kind: 'info' });
+      const args = [
+      "decrypt",
+      "-i", encryptedFilePath,
+      "-o", saveLocationPath,
+      ];
+      if (password) {
+        args.push("-p", password);
+        } else if (keyFilePath) {
+        args.push("--password-file", keyFilePath);
+      }
+
+      const command = Command.sidecar("binaries/libp2wviewer", args);
+      const result = await command.execute();
+
+      console.log("Decryption result:", result);
+      if (showLog) {
+        await message(get(t).run_decryption_log + "\n\n" + result.stdout, { kind: "info" });
+      } else {
+        await message(get(t).run_decryption_finished, { kind: "info" });
+      }
     } catch (error) {
-      console.error('Decryption failed:', error);
-      await message(get(t).run_decryption_failed, { kind: 'error' });
+      console.error("Decryption failed:", error);
+      await message(get(t).run_decryption_failed, { kind: "error" });
     }
   }
 </script>
@@ -236,8 +255,7 @@ h1 {
 }
 
 input[type="text"],
-input[type="password"],
-input[type="number"] {
+input[type="password"]{
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #ced4da;
@@ -248,8 +266,7 @@ input[type="number"] {
 }
 
 input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="number"]:focus {
+input[type="password"]:focus{
   border-color: #80bdff;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);

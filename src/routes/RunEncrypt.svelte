@@ -3,8 +3,7 @@
   import { createEventDispatcher } from 'svelte';
   import { get } from 'svelte/store';
   import { t } from '../lib/i18n.js';
-  import { invoke } from '@tauri-apps/api/core';
-
+  import { Command } from '@tauri-apps/plugin-shell';
   const dispatch = createEventDispatcher();
 
   let originalFilePath = '';
@@ -22,6 +21,10 @@
     const selected = await open({
       multiple: false,
       title: get(t).choose_original_file,
+      filters: [{
+        name: 'Image',
+        extensions: ['png', 'jpeg', 'jpg']
+      }]
     });
     if (selected) {
       // Just to suggest a name
@@ -70,30 +73,45 @@
       return;
     }
     if (!keyFilePath && !password) {
-      await message(get(t).key_file_or_password_empty, { kind: 'warning' });
+      await message(get(t).key_file_or_pwd_empty, { kind: 'warning' });
       return;
     }
     if (splitFiles < 1) {
       await message(get(t).split_files_invalid, { kind: 'warning' });
       return;
     }
-
-    try {
-      const result = "mocked_result";
-      //const result = await invoke('p2wviewer', { 
-        //filePath: originalFilePath,
-        //savePath: saveLocationPath,
-        //keyPath: keyFilePath,
-        //password: password,
-        //splitCount: splitFiles,
-        //showLog: showLog,
-      //});
-      console.log('Encryption result:', result);
-      await message(get(t).run_encryption_finished, { kind: 'info' });
-    } catch (error) {
-      console.error('Encryption failed:', error);
-      await message(get(t).run_encryption_failed, { kind: 'error' });
+    if (keyFilePath && password) {
+      await message(get(t).key_file_and_pwd_same_time, { kind: 'warning'});
+      return;
     }
+    try {
+      const args = [
+        "encrypt",
+        "-i", originalFilePath,
+        "-o", saveLocationPath,
+      ];
+
+      if (password) {
+        args.push("-p", password);
+      } else if (keyFilePath) {
+        args.push("--password-file", keyFilePath);
+      }
+
+      args.push("-s", String(splitFiles));
+
+      const command = Command.sidecar("binaries/libp2wviewer", args);
+      const result = await command.execute();
+      console.log("Encryption result:", result);
+      if (showLog) {
+        await message(get(t).run_encryption_finished_with_log + "\n\n" + result.stdout, { kind: "info" });
+      } else {
+        await message(get(t).run_encryption_finished, { kind: "info" });
+      }
+    } catch (error) {
+      console.error("Encryption failed:", error);
+      await message(get(t).run_encryption_failed, { kind: "error" });
+    }
+
   }
 </script>
 

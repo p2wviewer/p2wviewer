@@ -21,7 +21,7 @@
   "log": "Detailliertes Protokoll anzeigen",
   "split_options_title": "Aufteilen-Optionen",
   "split_count": "Aufteilen:",
-  "split_tip": "Wählen Sie die Anzahl der Dateien, in die aufgeteilt werden soll. Standard ist 1.",
+  "split_tip": "Wählen Sie die Anzahl der Dateien, in die aufgeteilt werden soll. Normaleweise ist 1.",
   "back_button": "Zurück",
   "encrypt_page_title": "Datei verschlüsseln",
   "decrypt_page_title": "Datei entschlüsseln",
@@ -33,9 +33,10 @@
   "encrypted_file_empty": "Bitte wählen Sie eine verschlüsselte Datei.",
   "original_file_empty": "Bitte wählen Sie eine Original-Datei.",
   "save_location_empty": "Bitte wählen Sie einen Speicherort.",
-  "key_file_or_password_empty": "Bitte wählen Sie eine Schlüsseldatei oder geben Sie ein Passwort ein.",
+  "key_file_or_pwd_empty": "Bitte wählen Sie eine Schlüsseldatei oder geben Sie ein Passwort ein.",
+  "key_file_and_pwd_same_time": "Bitte wählen Sie eine Schlüsseldatei ODER geben Sie ein Passwort ein.",
   "split_files_invalid": "Die Aufteilen-Anzahl muss mindestens 1 sein.",
   "pwd_placeholder": "Bitte geben Sie das Passwort ein",
   "pwd_empty": "Das Passwort darf nicht leer sein",
-  "pwd_disclaimer": "Hinweis: Das Passwort wird nicht gespeichert. BITTE vergessen Sie Ihr Passwort NICHT. Wenn Sie Ihr Passwort vergessen, können Sie Ihre Bilder nie mehr wiederherstellen."
+  "pwd_disclaimer": "Hinweis: Das Passwort wird nicht gespeichert. BITTE vergessen Sie Ihr Passwort NICHT. Wenn Sie Ihr Passwort vergessen, können Sie Ihre Bilder nie wiederherstellen."
 }
