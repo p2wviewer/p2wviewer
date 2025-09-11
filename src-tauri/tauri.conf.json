@@ -22,6 +22,9 @@
     }
   },
   "bundle": {
+    "externalBin": [
+      "binaries/libp2wviewer"
+    ],
     "active": true,
     "targets": "all",
     "icon": [

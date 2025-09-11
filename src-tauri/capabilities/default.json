@@ -9,8 +9,9 @@
       "identifier": "shell:allow-execute",
       "allow": [
         {
-          "name": "binaries/libp2wviewer.exe",
-          "sidecar": true
+          "name": "libp2wviewer",
+          "sidecar": true,
+          "args": true
         }
       ]
     },

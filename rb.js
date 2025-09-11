@@ -5,7 +5,7 @@ import https from "https";
 
 const name = "libp2wviewer";
 const owner = "p2wviewer";
-const repo = "p2wviewer";
+const repo = "libp2wviewer";
 
 const url = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
 console.log("Fetching latest release from", url);
