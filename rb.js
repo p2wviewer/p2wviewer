@@ -17,8 +17,8 @@ const data = await fetch(url, {
 console.log("Latest release:", data.tag_name);
 
 function getTarget() {
-  const rustInfo = execSync("rustc -vV").toString();
-  const match = /host:\s+(\S+)/.exec(rustInfo);
+  const info = execSync("rustc -vV").toString();
+  const match = /host:\s+(\S+)/.exec(info);
   if (!match) throw new Error("Failed to determine platform target triple");
   return match[1];
 }
@@ -36,23 +36,23 @@ if (!assetPattern) throw new Error(`Unsupported target: ${target}`);
 
 const asset = data.assets.find(a => assetPattern.test(a.name));
 if (!asset) throw new Error(`No matching asset for target ${target}`);
-
-const binaryTmpPath = path.join("src-tauri", "binaries", asset.name);
+const dir = path.join("src-tauri", "binaries");
+const tmp = path.join(dir, asset.name);
 const extension = target.includes("windows") ? ".exe" : "";
 const finalName = `${name}-${target}${extension}`;
-const binaryFinalPath = path.join(binariesDir, finalName);
+const final = path.join(dir, finalName);
 console.log("Downloading:", asset.browser_download_url);
 
 await new Promise((resolve, reject) => {
-  const file = fs.createWriteStream(binaryTmpPath);
+  const file = fs.createWriteStream(tmp);
   https.get(asset.browser_download_url, { headers: { "User-Agent": "Sidecar Bot" } }, response => {
     response.pipe(file);
     file.on("finish", () => file.close(resolve));
   }).on("error", err => {
-    if (fs.existsSync(binaryTmpPath)) fs.unlinkSync(binaryTmpPath);
+    if (fs.existsSync(tmp)) fs.unlinkSync(tmp);
     reject(err);
   });
 });
 
-fs.renameSync(binaryTmpPath, binaryFinalPath);
-console.log(`Placed binary at: ${binaryFinalPath}`);
+fs.renameSync(tmp, final);
+console.log(`Placed binary at: ${final}`);
