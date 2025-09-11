@@ -3,7 +3,7 @@
   import { createEventDispatcher } from 'svelte';
   import { get } from 'svelte/store';
   import { t } from '../lib/i18n.js';
-    import { read } from '$app/server';
+  import { Command } from '@tauri-apps/plugin-shell';
   //import { invoke } from '@tauri-apps/api/tauri';
 
   const dispatch = createEventDispatcher();
@@ -105,7 +105,15 @@
       }
     } catch (error) {
       console.error("Decryption failed:", error);
-      await message(get(t).run_decryption_failed, { kind: "error" });
+      let errorMessage = "Unknown error occurred";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      } else if (error && typeof error === 'object' && 'message' in error) {
+        errorMessage = String(error.message);
+      }
+      await message(get(t).run_decryption_failed + "\n\n" + errorMessage, { kind: "error" });
     }
   }
 </script>

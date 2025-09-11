@@ -109,7 +109,15 @@
       }
     } catch (error) {
       console.error("Encryption failed:", error);
-      await message(get(t).run_encryption_failed, { kind: "error" });
+      let errorMessage = "Unknown error occurred";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      } else if (error && typeof error === 'object' && 'message' in error) {
+        errorMessage = String(error.message);
+      }
+      await message(get(t).run_encryption_failed + "\n\n" + errorMessage, { kind: "error" });
     }
 
   }
