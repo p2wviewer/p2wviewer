@@ -20,6 +20,7 @@
   async function chooseEncryptedFile() {
     const selected = await open({
       multiple: false,
+      directory: true,
       title: get(t).choose_encrypted_file,
     });
     if (selected) {
@@ -28,7 +29,6 @@
         const pathParts = selected.split(/[\/\\]/);
         const fileName = pathParts.pop();
         const dir = pathParts.join('/');
-        // Remove 'encrypted_' prefix if it exists
         const cleanFileName = fileName ? fileName.replace(/^encrypted_/, '') : 'file';
         saveLocationPath = `${dir}/decrypted_${cleanFileName}`;
       }
@@ -39,6 +39,10 @@
     const selected = await save({
       title: get(t).choose_save_location,
       defaultPath: saveLocationPath || encryptedFilePath || 'decrypted_file',
+      filters: [{
+        name: 'Image',
+        extensions: ['png', 'jpeg', 'jpg', 'gif']
+      }]
     });
     if (selected) {
       saveLocationPath = selected;
@@ -57,15 +61,15 @@
 
   async function startDecryption() {
     if (!encryptedFilePath) {
-      await message(get(t).encrypted_file_empty, { title: p2wviewer, kind: 'error' });
+      await message(get(t).encrypted_file_empty, { kind: 'error' });
       return;
     }
     if (!saveLocationPath) {
-      await message(get(t).save_location_empty, { title: p2wviewer, kind: 'error' });
+      await message(get(t).save_location_empty, { kind: 'error' });
       return;
     }
     if (!keyFilePath && !password) {
-      await message(get(t).key_file_or_password_empty, { title: p2wviewer, kind: 'error' });
+      await message(get(t).key_file_or_password_empty, { kind: 'warning' });
       return;
     }
 
@@ -79,10 +83,10 @@
         //showLog: showLog,
       //});
       console.log('Decryption result:', result);
-      await message(get(t).run_decryption_finished, { title: p2wviewer });
+      await message(get(t).run_decryption_finished, { kind: 'info' });
     } catch (error) {
       console.error('Decryption failed:', error);
-      await message(get(t).run_decryption_failed, { title: p2wviewer, kind: 'error' });
+      await message(get(t).run_decryption_failed, { kind: 'error' });
     }
   }
 </script>
@@ -319,6 +323,7 @@ button:active {
   .page-container {
     padding: 20px;
     max-width: 800px;
+    align-self: flex-start;
   }
   .file-input-row {
     flex-direction: row;

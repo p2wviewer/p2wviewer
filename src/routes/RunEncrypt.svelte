@@ -3,7 +3,7 @@
   import { createEventDispatcher } from 'svelte';
   import { get } from 'svelte/store';
   import { t } from '../lib/i18n.js';
-  //import { invoke } from '@tauri-apps/api/tauri';
+  import { invoke } from '@tauri-apps/api/core';
 
   const dispatch = createEventDispatcher();
 
@@ -38,7 +38,12 @@
   async function chooseSaveLocation() {
     const selected = await save({
       title: get(t).choose_save_location,
+
       defaultPath: saveLocationPath || originalFilePath || 'encrypted_file',
+      filters: [{
+        name: 'Image',
+        extensions: ['png']
+      }]
     });
     if (selected) {
       saveLocationPath = selected;
@@ -57,19 +62,19 @@
 
   async function startEncryption() {
     if (!originalFilePath) {
-      await message(get(t).original_file_empty, { title: p2wviewer, kind: 'error' });
+      await message(get(t).original_file_empty, { kind: 'error' });
       return;
     }
     if (!saveLocationPath) {
-      await message(get(t).save_location_empty, { title: p2wviewer, kind: 'error' });
+      await message(get(t).save_location_empty, { kind: 'error' });
       return;
     }
     if (!keyFilePath && !password) {
-      await message(get(t).key_file_or_password_empty, { title: p2wviewer, kind: 'error' });
+      await message(get(t).key_file_or_password_empty, { kind: 'warning' });
       return;
     }
     if (splitFiles < 1) {
-      await message(get(t).split_files_invalid, { title: p2wviewer, kind: 'error' });
+      await message(get(t).split_files_invalid, { kind: 'warning' });
       return;
     }
 
@@ -84,10 +89,10 @@
         //showLog: showLog,
       //});
       console.log('Encryption result:', result);
-      await message(get(t).run_encryption_finished, { title: p2wviewer });
+      await message(get(t).run_encryption_finished, { kind: 'info' });
     } catch (error) {
       console.error('Encryption failed:', error);
-      await message(get(t).run_encryption_failed, { title: p2wviewer, kind: 'error' });
+      await message(get(t).run_encryption_failed, { kind: 'error' });
     }
   }
 </script>
@@ -332,6 +337,7 @@ button:active {
   .page-container {
     padding: 20px;
     max-width: 800px;
+    align-self: flex-start;
   }
   .file-input-row {
     flex-direction: row;

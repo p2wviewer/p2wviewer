@@ -6,6 +6,8 @@
   "permissions": [
     "core:default",
     "opener:default",
-    "locale:default"
+    "locale:default",
+    "dialog:allow-open",
+    "dialog:allow-save"
   ]
 }
