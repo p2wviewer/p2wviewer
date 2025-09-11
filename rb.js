@@ -59,6 +59,8 @@ await new Promise((resolve, reject) => {
     reject(err);
   });
 });
-
+// print file size
+const stats = fs.statSync(tmp);
+console.log(`Downloaded ${stats.size} bytes`);
 fs.renameSync(tmp, final);
 console.log(`Placed binary at: ${final}`);

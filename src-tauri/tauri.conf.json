@@ -21,13 +21,9 @@
       "csp": null
     }
   },
-  "allowlist": {
+  "plugins": {
     "shell": {
-      "sidecar": true,
-      "all": true,
-      "execute": true,
-      "open": true,
-      "scope": [{ "name": "binaries/libp2wviewer", "sidecar": true }]
+      "open": "*"
     }
   },
   "bundle": {
