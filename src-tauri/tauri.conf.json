@@ -21,6 +21,15 @@
       "csp": null
     }
   },
+  "allowlist": {
+    "shell": {
+      "sidecar": true,
+      "all": true,
+      "execute": true,
+      "open": true,
+      "scope": [{ "name": "binaries/libp2wviewer", "sidecar": true }]
+    }
+  },
   "bundle": {
     "externalBin": [
       "binaries/libp2wviewer"
