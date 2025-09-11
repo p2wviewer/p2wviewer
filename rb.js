@@ -38,8 +38,9 @@ const asset = data.assets.find(a => assetPattern.test(a.name));
 if (!asset) throw new Error(`No matching asset for target ${target}`);
 
 const binaryTmpPath = path.join("src-tauri", "binaries", asset.name);
-const binaryFinalPath = path.join("src-tauri", "binaries", `${name}-${target}${path.extname(asset.name)}`);
-
+const extension = target.includes("windows") ? ".exe" : "";
+const finalName = `${name}-${target}${extension}`;
+const binaryFinalPath = path.join(binariesDir, finalName);
 console.log("Downloading:", asset.browser_download_url);
 
 await new Promise((resolve, reject) => {
