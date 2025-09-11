@@ -9,9 +9,15 @@ const repo = "libp2wviewer";
 
 const url = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
 console.log("Fetching latest release from", url);
-
+headers = { "User-Agent": "Sidecar Bot", Accept: "application/vnd.github.v3+json" };
+if (process.env.GITHUB_TOKEN) {
+  console.log("Using GITHUB_TOKEN for authentication.");
+  headers["Authorization"] = `token ${process.env.GITHUB_TOKEN}`;
+} else {
+  console.log("No GITHUB_TOKEN found. Making an unauthenticated request.");
+}
 const data = await fetch(url, {
-  headers: { "User-Agent": "Sidecar Bot" }
+  headers,
 }).then(res => res.json());
 
 console.log("Latest release:", data.tag_name);
@@ -45,7 +51,7 @@ console.log("Downloading:", asset.browser_download_url);
 
 await new Promise((resolve, reject) => {
   const file = fs.createWriteStream(tmp);
-  https.get(asset.browser_download_url, { headers: { "User-Agent": "Sidecar Bot" } }, response => {
+  https.get(asset.browser_download_url, { headers }, response => {
     response.pipe(file);
     file.on("finish", () => file.close(resolve));
   }).on("error", err => {
