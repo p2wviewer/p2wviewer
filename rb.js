@@ -9,7 +9,7 @@ const repo = "libp2wviewer";
 
 const url = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
 console.log("Fetching latest release from", url);
-headers = { "User-Agent": "Sidecar Bot", Accept: "application/vnd.github.v3+json" };
+const headers = { "User-Agent": "Sidecar Bot", Accept: "application/vnd.github.v3+json" };
 if (process.env.GITHUB_TOKEN) {
   console.log("Using GITHUB_TOKEN for authentication.");
   headers["Authorization"] = `token ${process.env.GITHUB_TOKEN}`;
