@@ -100,7 +100,7 @@
 
       console.log("Decryption result:", result);
       if (showLog) {
-        await message(get(t).run_decryption_finish_with_log + "\n\n" + result.stdout, { kind: "info" });
+        await message(get(t).run_decryption_finished_with_log + "\n\n" + result.stdout, { kind: "info" });
       } else {
         await message(get(t).run_decryption_finished, { kind: "info" });
       }
