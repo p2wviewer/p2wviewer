@@ -49,16 +49,18 @@ const finalName = `${name}-${target}${extension}`;
 const final = path.join(dir, finalName);
 console.log("Downloading:", asset.browser_download_url);
 
-await new Promise((resolve, reject) => {
-  const file = fs.createWriteStream(tmp);
-  https.get(asset.browser_download_url, { headers }, response => {
-    response.pipe(file);
-    file.on("finish", () => file.close(resolve));
-  }).on("error", err => {
-    if (fs.existsSync(tmp)) fs.unlinkSync(tmp);
-    reject(err);
-  });
+// redirect
+const response = await fetch(asset.browser_download_url, {
+  headers,
+  redirect: 'follow'
 });
+
+if (!response.ok) {
+  throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+}
+
+const buffer = await response.arrayBuffer();
+fs.writeFileSync(tmp, Buffer.from(buffer));
 // print file size
 const stats = fs.statSync(tmp);
 console.log(`Downloaded ${stats.size} bytes`);
