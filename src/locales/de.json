@@ -28,6 +28,8 @@
   "key_password_tip": "Geben Sie entweder eine Schlüsseldatei oder ein Passwort für die Ver-/Entschlüsselung an",
   "run_encryption_finished": "Verschlüsselung abgeschlossen",
   "run_decryption_finished": "Entschlüsselung abgeschlossen",
+  "run_encryption_finished_with_log": "Verschlüsselung abgeschlossen. Unten ist das Protokoll:",
+  "run_decryption_finished_with_log": "Entschlüsselung abgeschlossen. Unten ist das Protokoll:",
   "run_encryption_failed": "Verschlüsselung fehlgeschlagen. Überprüfen Sie das Protokoll auf Details, oder erstellen Sie ein Issue auf GitHub.",
   "run_decryption_failed": "Entschlüsselung fehlgeschlagen. Überprüfen Sie das Protokoll auf Details, oder erstellen Sie ein Issue auf GitHub.",
   "encrypted_file_empty": "Bitte wählen Sie eine verschlüsselte Datei.",

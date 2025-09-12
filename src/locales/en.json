@@ -28,6 +28,8 @@
     "key_password_tip": "Provide either a key file or password for encryption/decryption",
     "run_encryption_finished": "Encryption completed",
     "run_decryption_finished": "Decryption completed",
+    "run_encryption_finished_with_log": "Decryption completed. Below is the log:",
+    "run_decryption_finished_with_log": "Decryption completed. Below is the log:",
     "run_encryption_failed": "Encryption failed. Check the log for details, or you can create an issue on GitHub.",
     "run_decryption_failed": "Decryption failed. Check the log for details, or you can create an issue on GitHub.",
     "encrypted_file_empty": "Please choose an encrypted file.",
