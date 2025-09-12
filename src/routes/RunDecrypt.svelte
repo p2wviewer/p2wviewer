@@ -84,13 +84,14 @@
 
     try {
       const args = [
-      "decrypt",
-      "-i", encryptedFilePath,
-      "-o", saveLocationPath,
+        "decrypt",
+        "-i", encryptedFilePath,
+        "-o", saveLocationPath,
+        "-vvv",
       ];
       if (password) {
         args.push("-p", password);
-        } else if (keyFilePath) {
+      } else if (keyFilePath) {
         args.push("--password-file", keyFilePath);
       }
 
@@ -99,7 +100,7 @@
 
       console.log("Decryption result:", result);
       if (showLog) {
-        await message(get(t).run_decryption_log + "\n\n" + result.stdout, { kind: "info" });
+        await message(get(t).run_decryption_finish_with_log + "\n\n" + result.stdout, { kind: "info" });
       } else {
         await message(get(t).run_decryption_finished, { kind: "info" });
       }

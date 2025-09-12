@@ -89,6 +89,7 @@
         "encrypt",
         "-i", originalFilePath,
         "-o", saveLocationPath,
+        "-vvv",
       ];
 
       if (password) {
