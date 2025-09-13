@@ -21,7 +21,7 @@
   async function chooseEncryptedFile() {
     const selected = await open({
       multiple: false,
-      directory: true,
+      directory: false,
       title: get(t).choose_encrypted_file,
       filters: [{
         name: 'Image',
