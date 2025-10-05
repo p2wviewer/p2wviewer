@@ -13,4 +13,6 @@ An app written in Rust with Tauri to encrypt and decrypt images into self-contai
 
 You can download precompiled binaries from the [releases page](https://github.com/p2wviewer/p2wviewer/releases) or automatic github actions artifacts.
 
-[In progress]
+## About update frequency
+
+I am still a student, and have many other stuffs to do. Once a month, or any time I am free, the repo will be updated.
