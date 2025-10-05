@@ -1,6 +1,6 @@
 # p2wviewer
 
-An app written in Rust with Tauri to encrypt and decrypt images into self-contained noise images. See the [p2wviewer-lib](https://github.com/p2wviewer/p2wviewer-lib) for the core library.
+An app written in Rust with Tauri to encrypt and decrypt images into self-contained noise images. See the [libp2wviewer](https://github.com/p2wviewer/libp2wviewer) for the core library.
 
 ## Features
   - **Encrypt:** Encrypts an image into a new image that appears as random noise.
